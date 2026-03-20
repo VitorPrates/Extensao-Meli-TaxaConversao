@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Overlay de Views",
+  "version": "1.0",
+  "description": "Exibe um número sobre outro na página",
+  "permissions": ["scripting"],
+  "content_scripts": [
+    {
+        "matches": ["https://*.mercadolivre.com.br/*"], 
+        "js": ["content.js"]
+    }
+  ]
+}
