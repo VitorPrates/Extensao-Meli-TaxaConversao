@@ -11,72 +11,47 @@ function extrairNumero(texto) {
 }
 
 function adicionarOverlay() {
-  const elementos = document.querySelectorAll(".sc-list-generic-statistics__label");
-  const caixa_info = document.querySelectorAll(".andes-badge__content");
   const caixa_pai = document.querySelectorAll(
-  ".andes-badge.andes-badge--pill.andes-badge--accent.sc-list-generic-statistics.sc-list-channel-content__pill.sc-list-channel-content__pill--with-pipe.sc-list-channel-content__pill--marketplace.andes-badge--small.andes-badge--rounded-top-left.andes-badge--rounded-top-right.andes-badge--rounded-bottom-left.andes-badge--rounded-bottom-right"
+    ".andes-badge.andes-badge--pill.andes-badge--accent.sc-list-generic-statistics.sc-list-channel-content__pill"
   );
-  let views = []
-  let compras = []
 
-  elementos.forEach((el) => {
-    // Evita duplicar overlay
-    // if (el.querySelector(".overlay-views")) return;
-    const texto = el.innerText;
-    // Verifica se é o campo de visitas
-    if (!texto.toLowerCase().includes("visitas")) return;
-
-    const numero = extrairNumero(texto);
-    if (!numero) return;
-
-    views.push(numero)
-  });
-
-  elementos.forEach((el) => {
-    // Evita duplicar overlay
-    // if (el.querySelector(".overlay-views")) return;
-    const texto = el.innerText;
-    // // Verifica se é o campo de visitas
-    if (!texto.toLowerCase().includes("vendidas")) return;
-
-    const numero = extrairNumero(texto);
-    if (!numero) return;
-
-    compras.push(numero)
-  });
-
-  caixa_pai.forEach((box, i) =>{
-    box.style.backgroundColor = "#dcffdc"
+  caixa_pai.forEach((box) => {
     const p = box.querySelector("p");
+    if (!p) return;
 
-    const texto = p.innerText;
-    // Verifica se é o campo de visitas
-    if (!texto.toLowerCase().includes("visitas") || !texto.toLowerCase().includes("vendidas") )
-    {
-      // console.log("ACHEUII")
-      return
-    };
+    const labels = box.querySelectorAll(".sc-list-generic-statistics__label");
 
-    if (p)
-    {
-      if (p.querySelector(".overlay-views")) return;
-      // Pega valores correspondentes
-      const v = views[i] || 0;
-      const c = compras[i] || 0;
-      console.log(v)
-      console.log(c)
-      if(c == 0 || v == 0) {return}
-      if(c > v) {return}
-      // Evita divisão por zero
-      const taxa = v > 0 ? ((c / v) * 100).toFixed(1) : 0;
-      const novaDiv = document.createElement("div");
-      novaDiv.className = "overlay-views"
-      novaDiv.innerText = `${v} | ${c}`;
-      
-      p.appendChild(novaDiv); // adiciona dentro do <p>
-    }
-    else {return}
-  })
+    let views = 0;
+    let compras = 0;
+
+    labels.forEach((el) => {
+      const texto = el.innerText.toLowerCase();
+      const numero = extrairNumero(texto);
+
+      if (!numero) return;
+
+      if (texto.includes("visitas")) {
+        views = numero;
+      }
+
+      if (texto.includes("vendidas")) {
+        compras = numero;
+      }
+    });
+
+    if (p.querySelector(".overlay-views")) return;
+
+    if (!views || !compras) return;
+    if (compras > views) return;
+
+    const taxa = ((views / compras)).toFixed(1);
+
+    const novaDiv = document.createElement("div");
+    novaDiv.className = "overlay-views";
+    novaDiv.innerText = `${taxa}%`;
+
+    p.appendChild(novaDiv);
+  });
 }
 
 // Observa mudanças na página (essencial pro Mercado Livre)
