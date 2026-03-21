@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Overlay de Views",
   "version": "1.0",
-  "description": "Exibe um número sobre outro na página",
+  "description": "Exibe a taxa de conversão individual de anúncios mercado livre",
   "permissions": ["scripting"],
   "content_scripts": [
     {
