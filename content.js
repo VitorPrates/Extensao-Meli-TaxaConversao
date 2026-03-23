@@ -7,7 +7,7 @@ function extrairNumero(texto) {
 
   // Remove tudo que não for número
   const numero = texto.replace(/\D/g, "");
-  return numero ? parseInt(numero) : null;
+  return numero ? parseFloat(numero) : null;
 }
 
 function adicionarOverlay() {
@@ -48,7 +48,28 @@ function adicionarOverlay() {
 
     const novaDiv = document.createElement("div");
     novaDiv.className = "overlay-views";
-    novaDiv.innerText = `${taxa}%`;
+    novaDiv.style.fontSize = "1.2em"
+    
+    if(taxa < 2)
+    {
+      novaDiv.innerText = `${taxa}%🔴`;
+      // novaDiv.style.color = "red"
+    }
+    else if(taxa >= 2 && taxa < 4)
+    {
+      novaDiv.innerText = `${taxa}%🟡`;
+      // novaDiv.style.color = "yellow"
+    }
+    else if(taxa >= 4 && taxa < 8)
+    {
+      novaDiv.innerText = `${taxa}%🟢`;
+      // novaDiv.style.color = "green"
+    }
+    else
+    {
+      novaDiv.innerText = `${taxa}%🔥`;
+      // novaDiv.style.color = "black"
+    }
 
     p.appendChild(novaDiv);
   });
