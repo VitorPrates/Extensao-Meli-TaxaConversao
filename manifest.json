@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Taxa conversao anuncios Mercado Livre",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Exibe a taxa de conversão individual de anúncios mercado livre na página de anúncios do vendedor",
   "permissions": ["scripting"],
+  "icons": {
+    "128": "icons/icon128.png"
+  },
   "content_scripts": [
     {
         "matches": ["https://*.mercadolivre.com.br/*"], 
