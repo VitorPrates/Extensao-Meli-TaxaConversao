@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Overlay de Views",
+  "name": "Taxa conversao anuncios Mercado Livre",
   "version": "1.0",
-  "description": "Exibe a taxa de conversão individual de anúncios mercado livre",
+  "description": "Exibe a taxa de conversão individual de anúncios mercado livre na página de anúncios do vendedor",
   "permissions": ["scripting"],
   "content_scripts": [
     {
