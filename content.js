@@ -44,7 +44,7 @@ function adicionarOverlay() {
     if (!views || !compras) return;
     if (compras > views) return;
 
-    const taxa = ((views / compras)).toFixed(1);
+    const taxa = ((compras / views)*100).toFixed(1);
 
     const novaDiv = document.createElement("div");
     novaDiv.className = "overlay-views";
